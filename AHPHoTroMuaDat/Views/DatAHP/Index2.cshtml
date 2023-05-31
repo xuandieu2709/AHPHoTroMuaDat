@@ -1,0 +1,382 @@
+﻿@model AHPHoTroMuaDat.Models.SearchCriteriaViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hỗ trợ mua nhà đất</title>
+    <!-- logo -->
+    <link rel="shortcut icon" href="~/lib/img/logo_web.png" type="image/x-icon">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/i18n/defaults-vi_VN.min.js"></script>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+</head>
+
+<body>
+    <div class="menuBody_1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+            <a class="navbar-brand" asp-action="Index2" asp-controller="DatAHP"><img src="~/lib/img/logo_web.png" id="logo" alt="Logo"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" style="font-family: initial;">
+                            Công cụ hỗ trợ mua nhà đất sử dụng AHP<span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+            </div>
+        </nav>
+    </div>
+    <div id="old-content">
+        <div class="container" id="select-options">
+            <h4 class="mb-4 mt-5">
+                <span style="color: red;"><b>* </b></span> Chọn tiêu chí (Tối thiểu là 2 và tối đa 15 lựa
+                chọn)
+            </h4>
+
+            <select class="selectpicker w-100" id="select_value" data-live-search="true" multiple
+                    data-selected-text-format="count > 5" data-max-options="15">
+                @foreach (var criteria in Model.Criterias)
+                {
+                <option id="opt@(criteria.CriteriaId)" value="@criteria.CriteriaId" data-content="@criteria.Name"></option>
+
+                }
+            </select>
+
+
+        </div>
+        <div class="container mt-5">
+            <h4 class="mb-4 mt-5">
+                <span style="color: red;"><b>* </b></span> Chọn phương án(Tối thiểu là 2 và tối đa 15 lựa
+                chọn)
+            </h4>
+            <div class="row" id="div-dat">
+                @foreach (var land in Model.Lands)
+                {
+                    string formattedPrice = string.Format("{0:#,#}", long.Parse(land.Price));
+                <div class="col-md-4 col-lg-4 col-sm-6 col-12 pb-4">
+                    <img src="@land.ImageUrl" class="rounded img-fluid" alt="HinhAnh3" width="500" height="500" />
+                    <p class="max-height-4-lines" id="count@(land.LandId)">@land.Name</p>
+                    <p class="money" data-tooltip="Giá: @formattedPrice đồng">Giá: @formattedPrice đồng </p>
+                    <p>@land.Area</p>
+                    <p>@land.Location</p>
+                    <div class="row">
+                        <!--<div class="col-6">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chi tiết</button>
+                        </div> -->
+                        <div class="col-12 m-auto"><input class="d-block m-auto" type="checkbox" id="count@(land.LandId)"></div>
+                    </div>
+                </div>
+                }
+            </div>
+            <ul class="pagination pagination-custom mt-3 mb-3">
+                <li class="page-item" id="previousPage"><a class="page-link" href="#" data-page="previous">Trước</a></li>
+                <li class="page-item active"><a class="page-link" href="#" data-page="1">1</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="2">2</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="3">3</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="4">4</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="5">5</a></li>
+                <li class="page-item"><a class="page-link" href="#" data-page="6">6</a></li>
+                <li class="page-item" id="nextPage"><a class="page-link" href="#" data-page="next">Sau</a></li>
+            </ul>
+
+            <button class="btn btn-info mt-2 mb-2" id="btncontinue">Tiếp tục</button>
+        </div>
+
+    </div>
+    <div class="container" id="section2" style="display: none;">
+        <!--  -->
+        <div class="notetable w-100 mt-2 mb-2">
+            <h4>Bảng ghi chú các mức độ </h4>
+            <table class="table table-responsive table-bordered" id="tabnote">
+                <tbody>
+                    <tr>
+                        <th style="width: 20%; text-align: center !important;">Mức độ</th>
+                        <th style="width: 40%;">Định nghĩa </th>
+                        <th style="width: 50%;">Giải thích</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"> 1</td>
+                        <td>Quan trọng bằng nhau</td>
+                        <td>2 yếu tố A và B đóng góp như nhau</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td>Quan trọng có sự trội hơn một ít</td>
+                        <td>Yếu tố A được chọn lựa , quan tâm nhiều hơn yếu tố B trong sự đóng góp </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">5</td>
+                        <td>Quan trọng nhiều hơn</td>
+                        <td>Yếu tố A đóng góp nhiều hơn yếu tố B </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">7</td>
+                        <td>Rất quan trọng , dễ nhận thấy sự khác biệt ảnh hưởng </td>
+                        <td>Yếu tố A đóng góp hơn B rất nhiều , thể hiện rõ ràng cho trường hợp cụ thể </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">9</td>
+                        <td>Cực kỳ quan trọng , lấn áp hoàn toàn </td>
+                        <td>Sự quan trọng hơn hẳn ở trên mức có thể , gần như triệt tiêu </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2,4,6,8</td>
+                        <td>Mức trung gian giữa các mức trên </td>
+                        <td>Cần sự thỏa hiệp giữa hai mức độ / nhận định </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <h4>Xác định mức độ ưu tiên cho các tiêu chí </h4>
+            <img class="d-block m-auto img-fluid" src="~/lib/img/tieuchinew.png" alt="ảnh tiêu chí">
+        </div>
+        <!--  -->
+        <div id="pairwise-comparison">
+            <h4 class="mb-4 mt-5">
+                <span style="color: red;"><b>* </b></span>So sánh theo cặp cho các tiêu chí của bạn đối với
+                mục tiêu của bạn
+            </h4>
+            <div class="row">
+                <div class="col-8">
+                    <table class="table table-active mt-3" id="comparison-table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>optiontable</th>
+                                <th>optiontable</th>
+                                <th>optiontable</th>
+                                <th>optiontable</th>
+                                <th>optiontable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>optiontable</td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>optiontable</td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>optiontable</td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>optiontable</td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                            <tr>
+                                <td>optiontable</td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                                <td><input type="number" class="form-control"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6 class="float-right mt-1 mb-1 col-12"><i>Tỷ số nhất quán(Consistency Ratio): phải lớn hơn 0 và nhỏ hơn 0.1</i></h6>
+                    <h6 class="float-right mt-4 mb-4 col-12" id="cr"></h6>
+                </div>
+                <div class="col-4">
+                    <canvas id="myChart" style="height: 100% !important;"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="comparisonModal" tabindex="-1" role="dialog" data-backdrop="static"
+             aria-labelledby="comparisonModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="comparisonModalLabel">Tùy chỉnh mức độ ưu tiên cho cặp tiêu chí</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="slider-container">
+                            <div class="row mb-2">
+                                <div class="col-2">
+                                    <span id="valueA">1</span>
+                                </div>
+                                <div class="col-8">
+                                    <input type="range" min="-8" max="8" value="0" class="slider" id="slider">
+                                </div>
+                                <div class="col-2 float-right">
+                                    <span id="valueB" style="float: right;">1</span>
+                                </div>
+                                <div class="col-6 mt-4">
+                                    <h6 id="textA">Nhà cấp 4</h6>
+                                </div>
+                                <div class="col-6 mt-4">
+                                    <h6 id="textB" class="float-right">Nhà lá</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4 class="mb-4 mt-5">
+            <span style="color: red;"><b>* </b></span>So sánh theo cặp cho các lựa chọn của bạn theo từng
+            tiêu chí
+        </h4>
+        <div id="pairwise-options" class="row">
+        </div>
+        <button type="button" class="btn btn-primary mt-1 mb-2" id="result-btn">Xem kết quả</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/index.js" asp-append-version="true"></script>
+    <script src="~/js/silder.js" asp-append-version="true"></script>
+    <!--Filter and Pagination script-->
+    <script>
+        $(document).ready(function () {
+            var selectedCriteria = [];
+            var currentPage = 1;
+            var totalPages = 1;
+
+
+            $('#select_value').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+                // Reset the currentPage variable
+                currentPage = 1;
+                // Get the selected criteria values
+                selectedCriteria = $('#select_value').val();
+                fetchLandData(selectedCriteria, currentPage); // Fetch data automatically when criteria changes
+                console.log("Selected Criteria: ", selectedCriteria);
+            });
+
+
+            // Fetch filtered and paginated data when the page loads
+            fetchLandData([], currentPage); // Pass an empty criteria array to fetch all data initially
+
+
+            // Fetch paginated data when a page link is clicked
+            $('.pagination-custom').on('click', '.page-link', function () {
+                var page = $(this).data('page');
+                if (page === 'previous') {
+                    currentPage = Math.max(1, currentPage - 1);
+                } else if (page === 'next') {
+                    currentPage = Math.min(totalPages, currentPage + 1);
+                } else {
+                    currentPage = page;
+                }
+                fetchLandData(selectedCriteria, currentPage);
+            });
+
+
+            function fetchLandData(criteria, page) {
+                console.log("Fetching data for criteria:", criteria);
+                console.log("Fetching data for page:", page);
+                currentPage = page; // Update the currentPage variable before making the AJAX request
+                $.ajax({
+                    url: 'FilteredAndPaginatedData',
+                    type: 'GET',
+                    data: { criteria: JSON.stringify(criteria), page: page },
+                    dataType: 'json',
+                    success: function (response) {
+                        // Update the DOM with the fetched data
+                        console.log(response);
+                        updateLandData(response.lands);
+                        updatePagination(response.totalPages, response.currentPage);
+                        totalPages = response.totalPages;
+                    },
+                    error: function () {
+                        // Handle error
+                    }
+                });
+            }
+
+            function updateLandData(data) {
+                var container = $('#div-dat');
+                container.empty();
+
+                for (var i = 0; i < data.length; i++) {
+                    var land = data[i];
+                    var html = '<div class="col-md-4 col-lg-4 col-sm-6 col-12 pb-4">' +
+                        '<img src="' + land.imageUrl + '" class="rounded img-fluid" alt="HinhAnh3" width="500" height="500" />' +
+                        '<p id="count2' + land.landId + '">' + land.name + '</p>' +
+                        '<p class="money" data-tooltip="Giá: ' + land.price + ' đồng">Giá: ' + land.price + ' đồng</p>' +
+                        '<p>' + land.area + '</p>' +
+                        '<p>' + land.location + '</p>' +
+                        '<div class="row">' +
+                        '<div class="col-6">' +
+                        '<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Chi tiết</button>' +
+                        '</div>' +
+                        '<div class="col-6"><input type="checkbox" id="count2' + land.landId + '"></div>' +
+                        '</div>' +
+                        '</div>';
+
+
+                    container.append(html);
+                }
+            }
+
+            function updatePagination(totalPages, currentPage) {
+                var pagination = $('.pagination-custom');
+                pagination.empty();
+
+                var previousPageHtml = '<li class="page-item"><a class="page-link" href="#" data-page="previous">&laquo;</a></li>';
+                pagination.append(previousPageHtml);
+
+                for (var i = 1; i <= totalPages; i++) {
+                    var pageHtml = '<li class="page-item ' + (i === currentPage ? 'active' : '') + '"><a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+                    pagination.append(pageHtml);
+                }
+
+                var nextPageHtml = '<li class="page-item"><a class="page-link" href="#" data-page="next">&raquo;</a></li>';
+                pagination.append(nextPageHtml);
+            }
+
+        });
+    </script>
+</body>
+
+
+</html>

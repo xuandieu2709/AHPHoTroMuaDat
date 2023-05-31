@@ -1,0 +1,86 @@
+﻿@model List<AHPHoTroMuaDat.Models.Land>
+
+<div class="main fade-in">
+    <table id="Land-list">
+        <thead>
+            <tr>
+                <th>Mã đất</th>
+                <th>Diện tích</th>
+                <th>Giá</th>
+                <th>Vị trí</th>
+                <th>Người đăng</th>
+                <th>Số điện thoại</th>
+                <th>Tên đất</th>
+                <th>Ngày đăng</th>
+                <th>Hình ảnh</th>
+                <th>Liên kết</th>
+                <th>Chọn</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var land in Model)
+            {
+                <tr>
+                    <td>@land.LandId</td>
+                    <td>@land.Area</td>
+                    <td>@land.Price</td>
+                    <td>@land.Location</td>
+                    <td>@land.Users</td>
+                    <td>@land.Phone</td>
+                    <td>@land.Name</td>
+                    <td>@land.UpdatedDate</td>
+                    <td>@land.ImageUrl</td>
+                    <td>@land.Link</td>
+                    <td><input type="checkbox" data-id="@land.LandId"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <table id="selected-land-details">
+        
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const landListTable = document.getElementById("Land-list");
+    const landDetailsTable = document.createElement("table");
+    landDetailsTable.id = "Land-details";
+    const landDetailsTableBody = document.createElement("tbody");
+
+    // Add a title to the details table
+    const landDetailsTitle = document.createElement("h2");
+
+    const mainDiv = document.querySelector(".main");
+    mainDiv.appendChild(landDetailsTitle);
+    mainDiv.appendChild(landDetailsTable);
+
+    landListTable.addEventListener("change", (event) => {
+        if (event.target.type === "checkbox") {
+            const rowId = event.target.dataset.id;
+            const landRow = event.target.closest("tr");
+            const landData = Array.from(landRow.children).map((cell) => cell.textContent);
+
+            if (event.target.checked) {
+                const landDetailsRow = document.createElement("tr");
+                landDetailsRow.setAttribute("data-id", rowId);
+                landData.forEach((data) => {
+                    const landDetailsCell = document.createElement("td");
+                    landDetailsCell.textContent = data;
+                    landDetailsRow.appendChild(landDetailsCell);
+                });
+                landDetailsTableBody.appendChild(landDetailsRow);
+            } else {
+                const targetRow = landDetailsTable.querySelector(`tr[data-id="${rowId}"]`);
+                if (targetRow) {
+                    targetRow.remove();
+                }
+            }
+        }
+    });
+
+    landDetailsTable.appendChild(landDetailsTableBody);
+</script>
+

@@ -1,0 +1,232 @@
+button#btncontinue:disabled
+{
+cursor: not-allowed;
+}
+.navbar-nav li a {
+  color: #000; /* Màu chữ ban đầu */
+  position: relative; /* Tạo khoảng trống để thêm các phần tử khác vào */
+}
+
+.navbar-nav li a:before {
+  content: ""; /* Thêm phần tử trước nội dung a */
+  position: absolute; /* Đưa phần tử trước vị trí của nội dung a */
+  width: 100%; /* Độ rộng bằng với nội dung a */
+  height: 2px; /* Độ cao của dòng chân trang */
+  bottom: 0; /* Dòng chân trang ở dưới cùng */
+  left: 0; /* Bắt đầu từ bên trái */
+  background-color: #fff; /* Màu dòng chân trang */
+  visibility: hidden; /* Ẩn dòng chân trang ban đầu */
+  transform: scaleX(0); /* Dãn rộng dòng chân trang */
+  transition: all 0.3s ease-in-out 0s; /* Hiệu ứng chuyển động */
+}
+
+.navbar-nav li a:hover:before {
+  visibility: visible; /* Hiện dòng chân trang khi rê chuột vào */
+  transform: scaleX(1); /* Thu nhỏ dòng chân trang về đúng kích thước ban đầu */
+}
+a.nav-link{
+  color: #ffff !important;
+}
+.navbar-nav.mr-auto {
+    font-size: 20px;
+    font-family: Tahoma, sans-serif;
+}  
+.col {
+    border: 1px solid #107a94;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    margin: 1px;
+
+}
+img {
+    border: 1px solid #107a94;
+    transition: transform 0.3s ease;
+    margin-bottom: 1em;
+    height: auto;
+    max-height: 200px;
+    max-width: 200px;
+}
+  
+img:hover {
+    transform: scale(1.02);
+}
+
+input[type="checkbox"][id*=count] {
+  /* position: absolute; */
+  /* top: 10px;
+  right: 10px; */
+  border: 2px solid #107a94 !important;
+  float: right;
+  transform: scale(2.5);
+  transition: transform 0.3s ease;
+  height: 100%;
+  width: 100%;
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+input[type="checkbox"][id*=count]:hover {
+  transform: scale(3.8);
+
+}
+.money {
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+}
+
+.money:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+ 
+.pagination-custom .page-link {
+  color: #107a94;
+  border-color: #107a94;
+}
+
+.pagination-custom .page-item.active .page-link {
+  background-color: #107a94;
+  border-color: #107a94;
+  color: #fff;
+}
+
+.pagination-custom .page-link:hover {
+  background-color: #107a94;
+  border-color: #107a94;
+  color: #fff;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+table > thead > tr > th{
+  text-align: center;
+}
+/* FONT */
+body{
+  font-family: 'Times New Roman', Times, serif;
+}
+div.menuBody_1{
+  font-family: 'Times New Roman', Times, serif !important;
+}
+/* LOGO WEB */
+#logo
+{
+  height: 80px;
+  width: 80px;
+  display: block;
+  margin: auto;
+}
+/* #########  SLIDER*/
+.slider-container {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.slider-container span{
+  font-size: x-large;
+}
+.slider-container h6{
+  font-size: large;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  background: #f1f1f1;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #107a94;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #107a94;
+  cursor: pointer;
+}
+
+.slider-value {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-value span {
+  margin: 0 5px;
+}
+
+.bg-blue {
+  background-color: #107a94;
+}
+
+.bg-green {
+  background-color: #4CAF50;
+}
+#myChart,canvas[id*="opt"] {
+  height: 100% !important;
+  width: 100% !important;
+}
+.bg-custom{
+background-color: #107a94 !important;
+}
+.bg-outline-custom{
+  background-color: none !important;
+  outline: #107a94 1px solid !important;
+  color: #107a94 !important;
+  }
+  .bg-outline-custom:hover{
+    background-color: #107a94 !important;
+    color: #ffff !important;
+    }
+
+.max-height-4-lines {
+    max-height: calc(5 * 1.2em); /* Chiều cao tối đa là 4 dòng */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Số dòng tối đa */
+    -webkit-box-orient: vertical;
+}
